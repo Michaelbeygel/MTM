@@ -1,7 +1,9 @@
 class VigenereCipher:
     ALPHA_BET_BIG = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
     ALPHA_BET_SMALL = 'abcdefghijklmnopqrstuvwxyz'
-
+    ENCRYPTE_SIGN = 1
+    DECRYPTE_SIGN = -1
+    
     def __init__(self, keys):
         self.keys = keys
     
@@ -19,7 +21,7 @@ class VigenereCipher:
     def encrypt_by_keys(self, decrypted, keys, sign): 
         encrypted = ""
         index = 0
-        for char in enumerate(decrypted):
+        for char in decrypted:
             encrypted += self.encrypt_char_by_k(char, sign*keys[index])
             if char.isalpha():
                 index = (index + 1) % len(self.keys)
@@ -27,9 +29,9 @@ class VigenereCipher:
         return encrypted
 
     def encrypt(self, decrypted): 
-        return self.encrypt_by_keys(decrypted, self.keys, 1)
+        return self.encrypt_by_keys(decrypted, self.k, self.ENCRYPTE_SIGN)
 
     def decrypt(self, encrypted):
-        return self.encrypt_by_keys(encrypted, self.keys, -1)
+        return self.encrypt_by_keys(encrypted, self.k, self.DECRYPTE_SIGN)
     
     
